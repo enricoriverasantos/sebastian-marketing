@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Marketing Services | 2.0 Glass Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            teal: '#235e5d',   /* Extracted deep teal from logo */
+                            yellow: '#e5b144', /* Extracted warm yellow from logo */
+                            dark: '#0f172a',
+                            light: '#f8fafc',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(35, 94, 93, 0.08) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, rgba(248, 250, 252, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(229, 177, 68, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            background-size: cover;
+            color: #334155; /* Slate 700 for main text */
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .glass-button {
+            background: linear-gradient(135deg, rgba(35, 94, 93, 0.9), rgba(35, 94, 93, 1));
+            color: white;
+            border: 1px solid rgba(35, 94, 93, 0.2);
+            box-shadow: 0 4px 15px rgba(35, 94, 93, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(229, 177, 68, 0.9), rgba(229, 177, 68, 1));
+            box-shadow: 0 6px 20px rgba(229, 177, 68, 0.3);
+            border-color: rgba(229, 177, 68, 0.5);
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .glass-button-secondary {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #1e293b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button-secondary:hover {
+            background: white;
+            border-color: rgba(35, 94, 93, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #235e5d;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 3px rgba(35, 94, 93, 0.15);
+        }
+
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            animation: float 25s infinite ease-in-out alternate;
+            opacity: 0.6;
+        }
+        
+        .orb-1 { width: 50vw; height: 50vw; max-width: 600px; max-height: 600px; background: rgba(35, 94, 93, 0.15); top: 5%; left: -5%; }
+        .orb-2 { width: 60vw; height: 60vw; max-width: 700px; max-height: 700px; background: rgba(229, 177, 68, 0.12); bottom: 10%; right: -10%; animation-delay: -12s; }
+        .orb-3 { width: 40vw; height: 40vw; max-width: 500px; max-height: 500px; background: rgba(35, 94, 93, 0.1); top: 40%; left: 30%; animation-delay: -5s; animation-direction: alternate-reverse;}
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+            100% { transform: translate(40px, 40px) scale(1); }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Buttery Entrance Animations */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+    </style>
+</head>
+<body class="font-sans relative">
+
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img src="https://sebastianmarketing.com/wp-content/uploads/Sebastian-Marketing-Services-Header-Logo.png" alt="Sebastian Marketing Services Logo" class="h-10 object-contain hover:opacity-80 transition-opacity">
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#services" class="text-slate-600 hover:text-brand-teal transition-colors text-sm font-medium">Services</a>
+                    <a href="#about" class="text-slate-600 hover:text-brand-teal transition-colors text-sm font-medium">About</a>
+                    <a href="#faq" class="text-slate-600 hover:text-brand-teal transition-colors text-sm font-medium">FAQ</a>
+                    <a href="#contact" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold">Let's Talk</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-teal focus:outline-none p-2 rounded-md bg-white/50 border border-black/5">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-b border-x-0 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-teal hover:bg-slate-50/50">Services</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-teal hover:bg-slate-50/50">About</a>
+                <a href="#faq" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-teal hover:bg-slate-50/50">FAQ</a>
+                <a href="#contact" class="block px-3 py-3 mt-4 text-center rounded-xl text-base font-medium glass-button">Let's Talk</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+            
+            <div class="reveal-up inline-flex items-center px-4 py-2 rounded-full glass-panel border border-brand-teal/20 text-brand-teal text-sm font-semibold mb-8 shadow-sm bg-white/80">
+                <i class="ph-fill ph-microphone-stage mr-2"></i> Your Local Digital Marketing Agency
+            </div>
+
+            <h1 class="reveal-up stagger-1 text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-slate-900 drop-shadow-sm">
+                Amplify Your Voice. <br>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-teal via-[#1a4746] to-brand-yellow">
+                    Increase Revenue.
+                </span>
+            </h1>
+            
+            <p class="reveal-up stagger-2 mt-4 max-w-2xl text-lg md:text-xl text-slate-600 mx-auto mb-10 leading-relaxed font-normal">
+                Develop profit-generating relationships through full-service podcast production and creative digital marketing services that actually work.
+            </p>
+            
+            <div class="reveal-up stagger-3 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contact" class="glass-button px-8 py-4 rounded-2xl text-lg font-semibold flex items-center justify-center group">
+                    Get Free Consultation
+                    <i class="ph ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#services" class="glass-button-secondary px-8 py-4 rounded-2xl text-lg font-semibold flex items-center justify-center">
+                    Explore Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-slate-900">What We Do</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-lg">Your partner in podcasting, branding, content creation, and comprehensive digital marketing strategies.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <!-- Service 1 -->
+                <div class="reveal-up stagger-1 glass-panel p-8 rounded-3xl group hover:border-brand-teal/40 transition-all duration-500 hover:shadow-xl hover:shadow-brand-teal/5 h-full flex flex-col bg-white/60">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-teal/10 to-brand-teal/5 flex items-center justify-center mb-6 border border-brand-teal/20 text-brand-teal flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+                        <i class="ph ph-headphones text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-slate-800">Podcast Production</h3>
+                    <p class="text-slate-600 mb-6 text-base leading-relaxed flex-grow">End-to-end podcast conceptualization, production, and editing to connect with your target market.</p>
+                    <ul class="space-y-3 text-sm text-slate-700 font-medium">
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-brand-yellow mr-2 text-lg"></i> Concept & Strategy</li>
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-brand-yellow mr-2 text-lg"></i> Launching & Marketing</li>
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-brand-yellow mr-2 text-lg"></i> Repurposing Content</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="reveal-up stagger-2 glass-panel p-8 rounded-3xl group hover:border-brand-yellow/40 transition-all duration-500 hover:shadow-xl hover:shadow-brand-yellow/5 h-full flex flex-col bg-white/60">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-yellow/10 to-brand-yellow/5 flex items-center justify-center mb-6 border border-brand-yellow/20 text-brand-yellow flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+                        <i class="ph ph-bezier-curve text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-slate-800">Branding & Design</h3>
+                    <p class="text-slate-600 mb-6 text-base leading-relaxed flex-grow">Visualize and unearth your vision. Identify your brand voice and show it on all online assets.</p>
+                    <ul class="space-y-3 text-sm text-slate-700 font-medium">
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-brand-teal mr-2 text-lg"></i> Brand Development</li>
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-brand-teal mr-2 text-lg"></i> Design Services</li>
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-brand-teal mr-2 text-lg"></i> Web Development</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="reveal-up stagger-3 glass-panel p-8 rounded-3xl group hover:border-slate-400/40 transition-all duration-500 hover:shadow-xl h-full flex flex-col bg-white/60">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-100 flex items-center justify-center mb-6 border border-slate-300 text-slate-600 flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+                        <i class="ph ph-trend-up text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-slate-800">Digital Marketing</h3>
+                    <p class="text-slate-600 mb-6 text-base leading-relaxed flex-grow">Connect, engage, and establish credibility. Gain the trust of your audience as they get to know you.</p>
+                    <ul class="space-y-3 text-sm text-slate-700 font-medium">
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-slate-400 mr-2 text-lg"></i> SEO & PPC</li>
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-slate-400 mr-2 text-lg"></i> Content Marketing</li>
+                        <li class="flex items-center"><i class="ph-fill ph-check-circle text-slate-400 mr-2 text-lg"></i> Social Media Ads</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <div class="w-full lg:w-1/2 space-y-6 reveal-up">
+                    <h2 class="text-3xl md:text-5xl font-bold text-slate-900">Why Choose Us?</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        With Sebastian Marketing Services, you don't have to worry about your content—text, images, videos, or podcasts. We produce them for you. All you have to do is share your vision and goals.
+                    </p>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        Founded by Aby Sebastian, a Digital Brand, SEO, and Content Strategist, we have been helping businesses take the right steps in the digital world since 2012.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-brand-teal bg-white/70 hover:-translate-y-1 transition-transform">
+                            <h4 class="font-bold text-slate-800 mb-1">Passion</h4>
+                            <p class="text-xs text-slate-500 font-medium">Bringing your vision into actuality.</p>
+                        </div>
+                        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-brand-yellow bg-white/70 hover:-translate-y-1 transition-transform">
+                            <h4 class="font-bold text-slate-800 mb-1">Curiosity</h4>
+                            <p class="text-xs text-slate-500 font-medium">Understanding you and your market.</p>
+                        </div>
+                        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-slate-400 bg-white/70 hover:-translate-y-1 transition-transform">
+                            <h4 class="font-bold text-slate-800 mb-1">Excellence</h4>
+                            <p class="text-xs text-slate-500 font-medium">Expertise in every digital step.</p>
+                        </div>
+                        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-[#1a4746] bg-white/70 hover:-translate-y-1 transition-transform">
+                            <h4 class="font-bold text-slate-800 mb-1">Results</h4>
+                            <p class="text-xs text-slate-500 font-medium">Focused on meeting your goals.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2 reveal-up stagger-2">
+                    <div class="glass-panel rounded-3xl p-8 md:p-10 relative bg-white/80 shadow-2xl shadow-brand-teal/5">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-brand-teal/20 via-transparent to-brand-yellow/20 rounded-[2rem] opacity-50 blur-lg -z-10"></div>
+                        <div class="relative z-10 space-y-8">
+                            <h3 class="text-2xl font-bold mb-6 text-slate-900 border-b border-slate-200 pb-4">Our Agency Process</h3>
+                            
+                            <div class="flex gap-5 group">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal font-bold text-lg border border-brand-teal/30 group-hover:bg-brand-teal group-hover:text-white transition-colors">1</div>
+                                    <div class="h-full w-0.5 bg-slate-200 my-2 group-hover:bg-brand-teal/30 transition-colors"></div>
+                                </div>
+                                <div class="pb-4">
+                                    <h4 class="text-slate-800 font-bold text-lg">Research & Analysis</h4>
+                                    <p class="text-sm text-slate-600 mt-1">Understanding your business, industry, audience, and competitors to build a solid foundation.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-5 group">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-brand-yellow/10 flex items-center justify-center text-brand-yellow font-bold text-lg border border-brand-yellow/30 group-hover:bg-brand-yellow group-hover:text-white transition-colors">2</div>
+                                    <div class="h-full w-0.5 bg-slate-200 my-2 group-hover:bg-brand-yellow/30 transition-colors"></div>
+                                </div>
+                                <div class="pb-4">
+                                    <h4 class="text-slate-800 font-bold text-lg">Discovery Session</h4>
+                                    <p class="text-sm text-slate-600 mt-1">Establishing goals: brand awareness, traffic, leads, or sales tailored to your specific needs.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5 group">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-lg border border-slate-300 group-hover:bg-slate-600 group-hover:text-white transition-colors">3</div>
+                                </div>
+                                <div>
+                                    <h4 class="text-slate-800 font-bold text-lg">Customized Strategies</h4>
+                                    <p class="text-sm text-slate-600 mt-1">Developing a comprehensive plan that perfectly aligns with your goals and budget constraints.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Common Questions</h2>
+                <p class="text-slate-600 text-lg">Everything you need to know about our services.</p>
+            </div>
+
+            <div class="space-y-4 reveal-up stagger-1">
+                <!-- FAQ Item 1 -->
+                <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300 bg-white/70 hover:bg-white/90 shadow-sm hover:shadow-md">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-slate-800 pr-4 text-lg">What is Podcasting and Digital Marketing?</span>
+                        <i class="ph-bold ph-caret-down text-brand-teal transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-5 hidden text-slate-600 text-base leading-relaxed border-t border-slate-200/50 pt-4 bg-white/50">
+                        Podcasting is producing a series of audio/video episodes discussing specific topics, accessible online. Digital Marketing is the process of building brand awareness, identifying your target market, and connecting with them across online platforms to foster loyalty.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300 bg-white/70 hover:bg-white/90 shadow-sm hover:shadow-md">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-slate-800 pr-4 text-lg">How do I know if Podcasting is right for my business?</span>
+                        <i class="ph-bold ph-caret-down text-brand-teal transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-5 hidden text-slate-600 text-base leading-relaxed border-t border-slate-200/50 pt-4 bg-white/50">
+                        Talk to us about your brand and goals. We will assess your unique situation and provide recommendations on the most effective ways to promote your business or advocacy.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300 bg-white/70 hover:bg-white/90 shadow-sm hover:shadow-md">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-slate-800 pr-4 text-lg">How long until Digital Marketing results show?</span>
+                        <i class="ph-bold ph-caret-down text-brand-teal transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-5 hidden text-slate-600 text-base leading-relaxed border-t border-slate-200/50 pt-4 bg-white/50">
+                        It depends on the platform and campaign type. Organic strategies usually require ample time to build momentum, whereas paid advertising (PPC) can yield visible results much sooner.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-[2.5rem] p-8 md:p-12 lg:p-16 relative bg-white/80 shadow-2xl shadow-slate-200/50 border-white reveal-up">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-extrabold mb-6 text-slate-900">Let's start talking.</h2>
+                        <p class="text-slate-600 mb-10 text-xl font-medium">Take your 30-minute consultation with a Podcast Marketing expert. Tell us about your vision.</p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-center group">
+                                <div class="w-14 h-14 rounded-full bg-brand-yellow/10 flex items-center justify-center mr-5 text-brand-yellow border border-brand-yellow/20 group-hover:scale-110 transition-transform">
+                                    <i class="ph-fill ph-phone text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 font-semibold uppercase tracking-wider">Can't wait? Call us</p>
+                                    <p class="text-xl font-bold text-slate-800">(206) 535-3465</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center group">
+                                <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mr-5 text-slate-600 border border-slate-200 group-hover:scale-110 transition-transform">
+                                    <i class="ph-fill ph-map-pin text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 font-semibold uppercase tracking-wider">Visit us</p>
+                                    <p class="text-lg font-bold text-slate-800">704 Spring St E525<br>Seattle, WA 98104</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center group">
+                                <div class="w-14 h-14 rounded-full bg-brand-teal/10 flex items-center justify-center mr-5 text-brand-teal border border-brand-teal/20 group-hover:scale-110 transition-transform">
+                                    <i class="ph-fill ph-clock text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 font-semibold uppercase tracking-wider">Hours</p>
+                                    <p class="text-lg font-bold text-slate-800">Mon - Fri, 9am - 6pm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel bg-slate-50/50 p-8 rounded-3xl border border-white shadow-inner">
+                        <form onsubmit="event.preventDefault(); showMessage();" class="space-y-5">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Name *</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-xl glass-input placeholder-slate-400 focus:ring-2 focus:ring-brand-teal/20" placeholder="John Doe">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Email *</label>
+                                    <input type="email" required class="w-full px-4 py-3 rounded-xl glass-input placeholder-slate-400 focus:ring-2 focus:ring-brand-teal/20" placeholder="john@company.com">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Company (Optional)</label>
+                                <input type="text" class="w-full px-4 py-3 rounded-xl glass-input placeholder-slate-400 focus:ring-2 focus:ring-brand-teal/20" placeholder="Your Business">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Message *</label>
+                                <textarea required rows="4" class="w-full px-4 py-3 rounded-xl glass-input placeholder-slate-400 resize-none focus:ring-2 focus:ring-brand-teal/20" placeholder="How can we help you?"></textarea>
+                            </div>
+                            
+                            <!-- Custom Message Box -->
+                            <div id="success-msg" class="hidden bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm text-center font-medium shadow-sm">
+                                <i class="ph-fill ph-check-circle inline mr-1 text-lg align-text-bottom"></i> Message sent successfully! We'll be in touch soon.
+                            </div>
+
+                            <button type="submit" class="w-full glass-button py-4 rounded-xl font-bold text-lg mt-4 shadow-lg flex justify-center items-center">
+                                Send Message <i class="ph-bold ph-paper-plane-right ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-200 bg-white/60 backdrop-blur-xl mt-auto relative z-10 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col items-center md:items-start">
+                <img src="https://sebastianmarketing.com/wp-content/uploads/Sebastian-Marketing-Services-Header-Logo.png" alt="Logo" class="h-8 object-contain mb-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+                <p class="text-sm text-slate-500 font-medium">© 2026 Sebastian Marketing Services. All Rights Reserved.</p>
+            </div>
+            <div class="flex space-x-8 text-sm font-semibold text-slate-500">
+                <a href="#" class="hover:text-brand-teal transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-brand-teal transition-colors">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // FAQ Accordion Logic
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            document.querySelectorAll('#faq .glass-panel div:not(.hidden)').forEach(el => {
+                if(el !== content) {
+                    el.classList.add('hidden');
+                    el.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Custom Message Logic
+        function showMessage() {
+            const msgBox = document.getElementById('success-msg');
+            msgBox.classList.remove('hidden');
+            document.querySelector('form').reset();
+            
+            setTimeout(() => {
+                msgBox.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Navbar styling on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.style.background = 'rgba(255, 255, 255, 0.9)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.7)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.02)';
+            }
+        });
+
+        // Buttery Scroll Reveal Animations using Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Trigger when 15% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Stop observing once revealed
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-up').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
